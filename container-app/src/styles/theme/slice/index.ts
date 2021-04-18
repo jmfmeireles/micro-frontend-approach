@@ -6,6 +6,7 @@ import { ThemeKeyType, ThemeState } from './types';
 
 export const initialState: ThemeState = {
   selected: getThemeFromStorage() || 'system',
+  isDarkMode: false,
 };
 
 const slice = createSlice({
@@ -15,6 +16,9 @@ const slice = createSlice({
     changeTheme(state, action: PayloadAction<ThemeKeyType>) {
       state.selected = action.payload;
     },
+    setDarkMode(state, action: PayloadAction<boolean>){
+state.isDarkMode = action.payload;
+    }
   },
 });
 

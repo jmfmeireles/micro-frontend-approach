@@ -4,4 +4,5 @@ export type ThemeKeyType = keyof typeof themes | 'system';
 
 export interface ThemeState {
   selected: ThemeKeyType;
+  isDarkMode: boolean;
 }

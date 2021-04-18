@@ -39,15 +39,19 @@ openSansObserver.load().then(() => {
 });
 
 const store = configureAppStore();
-/* 
-window.rendernews = (containerId, history) => {
-  debugger;
+
+window.rendernews = (containerId, history, countData, setState, theme) => {
   ReactDOM.render(
     <Provider store={store}>
       <ThemeProvider>
         <HelmetProvider>
           <React.StrictMode>
-            <App history={history} />
+            <App history={history} theme={theme}/>
+            <div>
+              {`Counter: ${countData.count}`}
+            </div>
+            <button onClick={() => setState(false)}>Hide Tile Preview</button>
+            <button onClick={() => setState(true)}>Show Tile Preview</button>
           </React.StrictMode>
         </HelmetProvider>
       </ThemeProvider>
@@ -74,8 +78,8 @@ if (!document.getElementById('news-container')) {
     document.getElementById('root'),
   );
 }
- */
 
+/* 
 const MOUNT_NODE = document.getElementById('root') as HTMLElement;
 
 ReactDOM.render(
@@ -89,7 +93,7 @@ ReactDOM.render(
     </ThemeProvider>
   </Provider>,
   MOUNT_NODE,
-);
+); */
 // Hot reloadable translation json files
 if (module.hot) {
   module.hot.accept(['./locales/i18n'], () => {

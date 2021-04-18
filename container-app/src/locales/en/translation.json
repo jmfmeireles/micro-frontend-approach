@@ -17,11 +17,11 @@
     "description": "Automate the creation of components, features, routes, selectors and sagas - and their tests - right from the CLI! Avoid fighting the glue of your code and focus on your app!"
   },
   "global": {
-    "appName": "Micro Store",
-    "appDescription": "A music store implemented using micro-frontends",
-    "microFrontend": "Micro Frontends",
+    "appName": "Store",
+    "appDescription": "A demo app to test web app framing",
+    "microFrontend": "Web App Framing",
     "documentationPage": "Documentation Page",
-    "welcomeMessage": "Welcome to Micro Store",
+    "welcomeMessage": "Welcome to Store",
     "homePage": "Home Page"
   },
   "microfrontends": {

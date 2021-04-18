@@ -1,11 +1,15 @@
 import React, { useEffect } from 'react';
 import { MicroFrontend as MicroFrontendModel } from '../../../models/MicroFrontend';
 import { History } from 'history';
+import { ThemeKeyType } from 'styles/theme/slice/types';
 
 function MicroFrontend(props: {
   microFrontend: MicroFrontendModel;
   history: History;
   isVisible: boolean;
+  setState: (state: boolean) => void;
+  count: number;
+  themeKey: ThemeKeyType;
 }) {
   useEffect(() => {
     const scriptId = `micro-frontend-script-${props.microFrontend.key}`;
@@ -14,6 +18,13 @@ function MicroFrontend(props: {
       window[`render${props.microFrontend.key}`](
         `${props.microFrontend.key}-container`,
         props.history,
+        {
+          count: props.count,
+          name: 'João',
+          age: 19,
+        },
+        (state) => props.setState(state),
+        props.themeKey,
       );
     };
 
@@ -44,10 +55,12 @@ function MicroFrontend(props: {
   });
 
   return (
+    <>
     <main
       id={`${props.microFrontend.key}-container`}
       hidden={!props.isVisible}
     />
+    </>
   );
 }
 

@@ -19,3 +19,8 @@ export const selectThemeKey = createSelector(
   [(state: RootState) => state.theme || initialState],
   theme => theme.selected,
 );
+
+export const isDarkMode = createSelector(
+  [(state: RootState) => state.theme || initialState],
+  theme => theme.isDarkMode,
+);

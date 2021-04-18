@@ -41,7 +41,6 @@ openSansObserver.load().then(() => {
 const store = configureAppStore();
 
 window.renderstore = (containerId, history) => {
-  debugger;
   ReactDOM.render(
     <Provider store={store}>
       <ThemeProvider>

@@ -8,7 +8,7 @@ export function NavBar() {
   return (
     <Wrapper>
       <Logo />
-      <Nav />
+      {/* <Nav /> */}
     </Wrapper>
   );
 }

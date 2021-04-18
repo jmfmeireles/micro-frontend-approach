@@ -8,12 +8,25 @@ import Tile from './components/Tile';
 import MicroFrontend from './components/MicroFrontend';
 import { MicroFrontends } from '../../resources/MicroFrontends';
 import { TilesWrapper } from './components/TilesWrapper';
+import { MainContentWrapper } from './components/MainContentWrapper';
+import { MicrofrontendsWrapper } from './components/MicrofrontendsWrapper';
 import { createBrowserHistory } from 'history';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { useSelector, useDispatch } from 'react-redux';
+import { isDarkMode, selectThemeKey } from 'styles/theme/slice/selectors';
+import { themeActions } from '../../../styles/theme/slice';
+import { isSystemDark } from 'styles/theme/utils';
 
 const defaultHistory = createBrowserHistory();
 
 export function HomePage({ history = defaultHistory }) {
   const { t } = useTranslation();
+  const [state, setState] = useState(true);
+  const [count, setCount] = useState(0);
+  const themeKey = useSelector(selectThemeKey)
+  const dispatch = useDispatch();
+
   const [activeKey, setActiveKey] = useState<string>(
     MicroFrontends.length ? MicroFrontends[0].key : '',
   );
@@ -25,8 +38,8 @@ export function HomePage({ history = defaultHistory }) {
       </Helmet>
       <NavBar />
       <PageWrapper>
-        <Title>{t('global.welcomeMessage')}</Title>
-        <TilesWrapper>
+        {state && <MainContentWrapper>
+          <Title>{t('global.welcomeMessage')}</Title><TilesWrapper>
           {MicroFrontends.map(micro => (
             <Tile
               key={micro.key}
@@ -37,16 +50,29 @@ export function HomePage({ history = defaultHistory }) {
             />
           ))}
         </TilesWrapper>
-        <>
+        <button onClick={() => setCount(count + 1)}>Iterate Counter</button>
+        <FormControlLabel
+              control={<Switch color="secondary" />}
+              label='Dark Mode?'
+              labelPlacement="start"
+              checked={themeKey ===  'dark'}
+              onClick={() => dispatch(themeActions.changeTheme(themeKey ===  'dark' ? 'light' : 'dark'))}
+              data-testid="formControlLabel"
+            />
+        </MainContentWrapper>}
+        <MicrofrontendsWrapper>
           {MicroFrontends.map(micro => (
             <MicroFrontend
               key={micro.key}
               microFrontend={micro}
               isVisible={activeKey === micro.key}
               history={history}
+              setState={setState}
+              count={count}
+              themeKey={themeKey}
             />
           ))}
-        </>
+        </MicrofrontendsWrapper>
       </PageWrapper>
     </>
   );
