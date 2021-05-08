@@ -7,32 +7,25 @@
  */
 
 import * as React from 'react';
-import { Helmet } from 'react-helmet-async';
-import { Router, Route, useHistory } from 'react-router-dom';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { Router } from 'react-router-dom';
 
 import { GlobalStyle } from '../styles/global-styles';
 
-import { HomePage } from './pages/HomePage';
 import { useTranslation } from 'react-i18next';
 import { createBrowserHistory } from 'history';
 import { PageWrapper } from './components/PageWrapper';
-import { themeActions } from '../styles/theme/slice'
-import { useDispatch } from 'react-redux';
-import { ThemeKeyType } from 'styles/theme/slice/types';
+import { Provider } from 'react-redux';
+import { configureAppStore } from '../store/configureStore';
 
 const defaultHistory = createBrowserHistory();
 
-export function App( props: {theme: ThemeKeyType}, { history = defaultHistory} ) {
+export function App(
+  props: { isDarkMode?: boolean; history?; parentPath?: string },
+  { history = defaultHistory },
+) {
   const { i18n } = useTranslation();
-  const dispatch = useDispatch();
-  const historyObj = useHistory();
-  React.useEffect(() => {
-    dispatch(themeActions.changeTheme(props.theme));
-  }, [props.theme]);
 
-  const handleOnClick = () => {
-    history.push(`/news`);
-  };
   return (
     <>
       <Helmet
@@ -43,13 +36,26 @@ export function App( props: {theme: ThemeKeyType}, { history = defaultHistory} )
         <meta name="description" content="A React Boilerplate application" />
       </Helmet>
       <Router history={history}>
-      <PageWrapper>
-        <Route exact path="/" component={() => <button onClick={handleOnClick}>Go to News Container</button>} />
-        <Route path="/news" component={() => <div>News Container main</div>} />
-      </PageWrapper>
+        <PageWrapper>News Container</PageWrapper>
       </Router>
-
       <GlobalStyle />
     </>
   );
 }
+
+/*************************MICROFRONTENDS APPROACH - Webpack Module Federation ************/
+const store = configureAppStore();
+
+function NewsApp(props: { parentPath: string; history: any }) {
+  return (
+    <Provider store={store}>
+      <HelmetProvider>
+        <React.StrictMode>
+          <App history={props.history} parentPath={props.parentPath} />
+        </React.StrictMode>
+      </HelmetProvider>
+    </Provider>
+  );
+}
+
+export default NewsApp;

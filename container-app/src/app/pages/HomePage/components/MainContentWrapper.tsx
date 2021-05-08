@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 
 export const MainContentWrapper = styled.div`
   margin-bottom: 30px;

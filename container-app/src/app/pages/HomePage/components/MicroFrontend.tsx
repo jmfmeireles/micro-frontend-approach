@@ -23,7 +23,7 @@ function MicroFrontend(props: {
           name: 'João',
           age: 19,
         },
-        (state) => props.setState(state),
+        state => props.setState(state),
         props.themeKey,
       );
     };
@@ -56,10 +56,10 @@ function MicroFrontend(props: {
 
   return (
     <>
-    <main
-      id={`${props.microFrontend.key}-container`}
-      hidden={!props.isVisible}
-    />
+      <main
+        id={`${props.microFrontend.key}-container`}
+        hidden={!props.isVisible}
+      />
     </>
   );
 }

@@ -16,15 +16,15 @@ import FontFaceObserver from 'fontfaceobserver';
 // Use consistent styling
 import 'sanitize.css/sanitize.css';
 
-import { App } from 'app';
+import { App } from './app';
 
 import { HelmetProvider } from 'react-helmet-async';
 
-import { configureAppStore } from 'store/configureStore';
+import { configureAppStore } from './store/configureStore';
 
-import { ThemeProvider } from 'styles/theme/ThemeProvider';
+import { ThemeProvider } from './styles/theme/ThemeProvider';
 
-import reportWebVitals from 'reportWebVitals';
+import reportWebVitals from './reportWebVitals';
 
 // Initialize languages
 import './locales/i18n';
@@ -40,26 +40,7 @@ openSansObserver.load().then(() => {
 
 const store = configureAppStore();
 
-window[`renderstore`] = (containerId, history) => {
-  ReactDOM.render(
-    <Provider store={store}>
-      <ThemeProvider>
-        <HelmetProvider>
-          <React.StrictMode>
-            <App />
-          </React.StrictMode>
-        </HelmetProvider>
-      </ThemeProvider>
-    </Provider>,
-    document.getElementById(containerId),
-  );
-};
-
-window[`unmountstore`] = containerId => {
-  ReactDOM.unmountComponentAtNode(document.getElementById(containerId) as HTMLElement);
-};
-
-if (!document.getElementById('store-container')) {
+if (!document.getElementById('news-container')) {
   ReactDOM.render(
     <Provider store={store}>
       <ThemeProvider>
@@ -85,3 +66,25 @@ if (module.hot) {
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+/****************************MICROFRONTENDS APPROACH: run time integration *******************/
+window[`rendernews`] = (containerId, history) => {
+  ReactDOM.render(
+    <Provider store={store}>
+      <ThemeProvider>
+        <HelmetProvider>
+          <React.StrictMode>
+            <App history={history} />
+          </React.StrictMode>
+        </HelmetProvider>
+      </ThemeProvider>
+    </Provider>,
+    document.getElementById(containerId),
+  );
+};
+
+window[`unmountnews`] = containerId => {
+  ReactDOM.unmountComponentAtNode(
+    document.getElementById(containerId) as HTMLElement,
+  );
+};

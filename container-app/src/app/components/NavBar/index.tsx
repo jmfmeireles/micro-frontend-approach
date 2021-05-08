@@ -1,14 +1,14 @@
 import * as React from 'react';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import { Logo } from './Logo';
-import { StyleConstants } from 'styles/StyleConstants';
+import { StyleConstants } from '../../../styles/StyleConstants';
 import { Nav } from './Nav';
 
 export function NavBar() {
   return (
     <Wrapper>
       <Logo />
-      {/* <Nav /> */}
+      <Nav />
     </Wrapper>
   );
 }

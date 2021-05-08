@@ -1,5 +1,10 @@
 export interface MicroFrontend {
   key: string;
   logo: string;
-  host: string | undefined;
+  component: React.ComponentType<MicroFrontendProps>;
+}
+
+export interface MicroFrontendProps {
+  parentPath: string;
+  history: any;
 }

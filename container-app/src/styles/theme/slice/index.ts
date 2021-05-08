@@ -1,6 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { createSlice } from 'utils/@reduxjs/toolkit';
-import { useInjectReducer } from 'utils/redux-injectors';
+import { createSlice } from '../../../utils/@reduxjs/toolkit';
+import { useInjectReducer } from '../../../utils/redux-injectors';
 import { getThemeFromStorage } from '../utils';
 import { ThemeKeyType, ThemeState } from './types';
 
@@ -16,9 +16,9 @@ const slice = createSlice({
     changeTheme(state, action: PayloadAction<ThemeKeyType>) {
       state.selected = action.payload;
     },
-    setDarkMode(state, action: PayloadAction<boolean>){
-state.isDarkMode = action.payload;
-    }
+    setDarkMode(state, action: PayloadAction<boolean>) {
+      state.isDarkMode = action.payload;
+    },
   },
 });
 

@@ -16,15 +16,15 @@ import FontFaceObserver from 'fontfaceobserver';
 // Use consistent styling
 import 'sanitize.css/sanitize.css';
 
-import { App } from 'app';
+import App from './app';
 
 import { HelmetProvider } from 'react-helmet-async';
 
-import { configureAppStore } from 'store/configureStore';
+import { configureAppStore } from './store/configureStore';
 
-import { ThemeProvider } from 'styles/theme/ThemeProvider';
+import { ThemeProvider } from './styles/theme/ThemeProvider';
 
-import reportWebVitals from 'reportWebVitals';
+import reportWebVitals from './reportWebVitals';
 
 // Initialize languages
 import './locales/i18n';
@@ -39,40 +39,20 @@ openSansObserver.load().then(() => {
 });
 
 const store = configureAppStore();
+const MOUNT_NODE = document.getElementById('root') as HTMLElement;
 
-window[`renderstore`] = (containerId, history) => {
-  ReactDOM.render(
-    <Provider store={store}>
-      <ThemeProvider>
-        <HelmetProvider>
-          <React.StrictMode>
-            <App />
-          </React.StrictMode>
-        </HelmetProvider>
-      </ThemeProvider>
-    </Provider>,
-    document.getElementById(containerId),
-  );
-};
-
-window[`unmountstore`] = containerId => {
-  ReactDOM.unmountComponentAtNode(document.getElementById(containerId) as HTMLElement);
-};
-
-if (!document.getElementById('store-container')) {
-  ReactDOM.render(
-    <Provider store={store}>
-      <ThemeProvider>
-        <HelmetProvider>
-          <React.StrictMode>
-            <App />
-          </React.StrictMode>
-        </HelmetProvider>
-      </ThemeProvider>
-    </Provider>,
-    document.getElementById('root'),
-  );
-}
+ReactDOM.render(
+  <Provider store={store}>
+    <ThemeProvider>
+      <HelmetProvider>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </HelmetProvider>
+    </ThemeProvider>
+  </Provider>,
+  MOUNT_NODE,
+);
 
 // Hot reloadable translation json files
 if (module.hot) {

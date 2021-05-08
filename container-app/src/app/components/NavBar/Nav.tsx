@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components/macro';
-import { ReactComponent as DocumentationIcon } from './assets/documentation-icon.svg';
+import styled from 'styled-components';
+//import { ReactComponent as DocumentationIcon } from './assets/documentation-icon.svg';
 
 export function Nav() {
   const { t } = useTranslation();
@@ -13,7 +13,7 @@ export function Nav() {
         title={t('global.documentationPage')}
         rel="noopener noreferrer"
       >
-        <DocumentationIcon />
+        {/* <DocumentationIcon /> */}
         {t('global.microFrontend')}
       </Item>
     </Wrapper>
