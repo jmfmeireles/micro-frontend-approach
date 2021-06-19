@@ -82,6 +82,7 @@ module.exports = {
     new ModuleFederationPlugin({
       name: 'NewsApp',
       library: { type: 'var', name: 'NewsApp' },
+      filename: 'remoteEntry.js',
       remotes: {
         ContainerApp: 'ContainerApp',
       },

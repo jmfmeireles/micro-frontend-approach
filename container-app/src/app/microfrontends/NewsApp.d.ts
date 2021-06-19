@@ -1,6 +1,6 @@
 import { MicroFrontendProps } from '../models/MicroFrontend';
 
-declare module 'NewsApp' {
+declare module 'NewsApp/App' {
   const App: React.ComponentType<MicroFrontendProps>;
 
   export default App;
