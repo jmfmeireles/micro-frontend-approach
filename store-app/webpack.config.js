@@ -11,21 +11,23 @@ const sharedDependencies = require('./sharedDependencies');
 module.exports = {
   entry: './src/index.tsx',
   mode: 'development',
+  target: 'web',
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
-    port: 3000,
+    port: 3002,
     historyApiFallback: true,
   },
   resolve: {
     extensions: ['.wasm', '.ts', '.tsx', '.mjs', '.cjs', '.js', '.json'],
     alias: {
       path: 'path-browserify',
+
       fs: false,
       os: 'os-browserify',
     },
   },
   output: {
-    publicPath: 'http://localhost:3000/',
+    publicPath: 'http://localhost:3002/',
   },
   module: {
     rules: [
@@ -78,12 +80,14 @@ module.exports = {
       emitWarning: true,
     }),
     new ModuleFederationPlugin({
-      name: 'ContainerApp',
-      library: { type: 'var', name: 'ContainerApp' },
+      name: 'StoreApp',
+      library: { type: 'var', name: 'StoreApp' },
       filename: 'remoteEntry.js',
       remotes: {
-        NewsApp: 'NewsApp',
-        StoreApp: 'StoreApp',
+        ContainerApp: 'ContainerApp',
+      },
+      exposes: {
+        './App': './src/app/index.tsx',
       },
       shared: sharedDependencies(),
     }),

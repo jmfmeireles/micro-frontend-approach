@@ -10,7 +10,6 @@ import { TilesWrapper } from './components/TilesWrapper';
 import { MainContentWrapper } from './components/MainContentWrapper';
 import { MicrofrontendsWrapper } from './components/MicrofrontendsWrapper';
 import { createBrowserHistory } from 'history';
-import NewsAppMFE from '../../microfrontends/NewsAppMFE';
 
 const defaultHistory = createBrowserHistory();
 
@@ -42,9 +41,17 @@ export function HomePage({ history = defaultHistory }) {
             ))}
           </TilesWrapper>
         </MainContentWrapper>
-        )
         <MicrofrontendsWrapper>
-          <NewsAppMFE parentPath="/" history={history} />
+          {MicroFrontends.map(micro => (
+            <div key={micro.key}>
+              {activeKey === micro.key && (
+                <micro.component
+                  history={history}
+                  parentPath={`/${micro.key}`}
+                />
+              )}
+            </div>
+          ))}
         </MicrofrontendsWrapper>
       </PageWrapper>
     </>

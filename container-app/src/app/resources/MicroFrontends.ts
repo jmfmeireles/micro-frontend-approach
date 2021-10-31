@@ -2,7 +2,7 @@ import news from './assets/news.png';
 import store from './assets/store.png';
 import { MicroFrontend } from '../models/MicroFrontend';
 import NewsAppMFE from '../microfrontends/NewsAppMFE';
-import ShoppingCartMFE from '../microfrontends/ShoppingCartMFE';
+import StoreAppMFE from '../microfrontends/StoreAppMFE';
 
 export const MicroFrontends: MicroFrontend[] = [
   {
@@ -13,6 +13,6 @@ export const MicroFrontends: MicroFrontend[] = [
   {
     key: 'store',
     logo: store,
-    component: ShoppingCartMFE,
+    component: StoreAppMFE,
   },
 ];

@@ -6,7 +6,7 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 
 const { ModuleFederationPlugin } = require('webpack').container;
 
-const deps = require('./package.json').dependencies;
+const sharedDependencies = require('./sharedDependencies');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -89,23 +89,7 @@ module.exports = {
       exposes: {
         './App': './src/app/index.tsx',
       },
-      shared: {
-        react: {
-          singleton: true,
-          eager: true,
-          requiredVersion: deps.react,
-        },
-        'react-dom': {
-          singleton: true,
-          eager: true,
-          requiredVersion: deps['react-dom'],
-        },
-        'styled-components': {
-          singleton: true,
-          eager: true,
-          requiredVersion: deps['styled-components'],
-        },
-      },
+      shared: sharedDependencies(),
     }),
   ],
 };
